@@ -14,9 +14,6 @@ const ProductDetail: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const fetchProduct = async (productId: string) => {
-    // const data = await singleProduct(productId);
-    // console.log(data);
-    // setProduct(data);
     try {
       setLoading(true);
       const data = await singleProduct(productId);
@@ -38,11 +35,6 @@ const ProductDetail: React.FC = () => {
   if (loading) {
     return <Loader />;
   }
-
-  // if (error) {
-  //   return <div className="error">{error}</div>;
-  // }
-  // if (!product) return <h2>No Product Found</h2>;
 
   return (
     <>
