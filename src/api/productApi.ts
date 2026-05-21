@@ -17,6 +17,11 @@ export const getCategories = async () => {
 };
 
 export const singleProduct = async (id: string) => {
-  const response = await axios.get(`${BASE_URL}/products/${id}`);
-  return response.data;
+  try {
+    const response = await axios.get(`${BASE_URL}/products/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching single product:", error);
+    throw error;
+  }
 };

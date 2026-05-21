@@ -1,13 +1,11 @@
-
-import React,{ useEffect, useState } from 'react';
-import type { Product } from '../types/product';
-import { useSearchParams } from 'react-router';
-import { getProducts } from '../api/productApi';
-import FilterSidebar from '../components/FilterSidebar';
-import ProductCard from '../components/ProductCard';
-import Navbar from '../components/Navbar';
-import Loader from '../components/Loader';
-
+import React, { useEffect, useState } from "react";
+import type { Product } from "../types/product";
+import { useSearchParams } from "react-router";
+import { getProducts } from "../api/productApi";
+import FilterSidebar from "../components/FilterSidebar";
+import ProductCard from "../components/ProductCard";
+import Navbar from "../components/Navbar";
+import Loader from "../components/Loader";
 
 const Home: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -15,7 +13,7 @@ const Home: React.FC = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const category = searchParams.get('category') || '';
+  const category = searchParams.get("category") || "";
 
   useEffect(() => {
     fetchProducts();
@@ -44,37 +42,41 @@ const Home: React.FC = () => {
   };
 
   return (
-  <>
-       <Navbar/>
-  
-    <div className='home-container'>
-     
-      <FilterSidebar
-        selectedCategory={category}
-        setSelectedCategory={setSelectedCategory}
-      />
+    <>
+      <Navbar />
 
-      <div className='products-section'>
-        <div className='heading-row'>
-          <h1>Products</h1>
-        </div>
+      <div className="home-container">
+        <FilterSidebar
+          selectedCategory={category}
+          setSelectedCategory={setSelectedCategory}
+        />
+
+        <div className="products-section">
+          <div className="heading-row">
+            <h1>Products</h1>
+          </div>
 
           {loading ? (
-        <Loader/>
-         
-        ) : (
-          <div className='product-grid'>
-            {products.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-              />
-            ))}
-          </div>
-        )}
+            <Loader />
+          ) : (
+            <div className="product-grid">
+              {products.length > 0 ? (
+                products.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))
+              ) : (
+                <div
+                  className="d-flex align-items-center justify-content-center"
+                  style={{ height: "100vh" }}
+                >
+                  <h2>No Product Found</h2>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
-      </div>
-      </>
+    </>
   );
 };
 
